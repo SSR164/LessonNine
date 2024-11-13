@@ -4,15 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WorkingFilesTest {
@@ -30,13 +27,9 @@ public class WorkingFilesTest {
         }
         return InputStream.nullInputStream();
     }
-@Test
-void jjj(){
-
-}
 
     @Test
-    void pdfFileExtension() throws Exception {
+    void pdfFileExtensionTest() throws Exception {
         try (InputStream is = zip(".pdf")) {
             PDF pdf = new PDF(is);
             String actualText = pdf.text.replaceAll("\\s+", " ").trim(); // Заменяем несколько пробелов на один и обрезаем
@@ -47,7 +40,7 @@ void jjj(){
     }
 
     @Test
-    void xlsFileExtension() throws Exception {
+    void xlsFileExtensionTest() throws Exception {
         try (InputStream is = zip(".XLS")) {
             XLS xls = new XLS(is);
             String string = xls.excel.getSheetAt(0).getRow(1).getCell(6).getStringCellValue();
@@ -58,7 +51,7 @@ void jjj(){
     }
 
     @Test
-    void csvFileExtension() throws Exception {
+    void csvFileExtensionTest() throws Exception {
         try (InputStream is = zip(".csv")) {
             CSVReader csvReader= new CSVReader(new InputStreamReader(is));
             List<String[]> data = csvReader.readAll();
@@ -69,10 +62,6 @@ void jjj(){
             Assertions.assertEquals("Quick Start", data.get(1)[0]);
             Assertions.assertEquals("How to start?", data.get(1)[1].trim());
             //Assertions.assertEquals(new String[]{"Quick Start","How to start?"},data.get(1));
-
-
-
-
         }
 
 
